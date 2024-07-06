@@ -67,6 +67,18 @@ const NavBar = () => {
                 >
                   Sign Up
                 </Link>
+                <Link
+                  to="/products"
+                  className="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+                >
+                  Products
+                </Link>
+                <Link
+                  to="/home"
+                  className="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+                >
+                  Home
+                </Link>
               </div>
             </div>
           </div>

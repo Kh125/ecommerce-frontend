@@ -10,6 +10,9 @@ import ProductDetails from "./pages/ProductDetails";
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
 import Welcome from "./pages/Welcome";
+import RequireAuth from "./auth/RequireAuth";
+import Layout from "./components/Layout";
+import Unauthorized from "./pages/Unauthorized";
 
 function App() {
   return (
@@ -17,14 +20,25 @@ function App() {
       <Router>
         <NavBar />
         <Routes>
-          <Route path="/" element={<LandingPage />} />
-          <Route path="/home" element={<Welcome />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
+          <Route path="/" element={<Layout />}>
+            {/* Public Routes */}
+            <Route path="/" element={<LandingPage />} />
+            {/* <Route path="home" element={<Welcome />} /> */}
+            <Route path="login" element={<Login />} />
+            <Route path="signup" element={<Signup />} />
+            <Route path="unauthorized" element={<Unauthorized />} />
 
-          {/* Product Routes */}
-          <Route path="/products" element={<Products />} />
-          <Route path="/product/:id" element={<ProductDetails />} />
+            {/* Product Routes */}
+            <Route element={<RequireAuth allowedRoles={["ADMIN"]} />}>
+              <Route path="/products" element={<Products />} />
+              <Route path="/product/:id" element={<ProductDetails />} />
+            </Route>
+
+            <Route element={<RequireAuth allowedRoles={["USER"]} />}>
+              <Route path="home" element={<Welcome />} />
+            </Route>
+            {/* </Route> */}
+          </Route>
         </Routes>
         <Footer />
       </Router>
