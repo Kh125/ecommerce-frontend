@@ -14,8 +14,12 @@ import RequireAuth from "./auth/RequireAuth";
 import Layout from "./components/Layout";
 import Unauthorized from "./pages/Unauthorized";
 import Sample from "./pages/Sample";
+import Logout from "./pages/Logout";
+import useAuth from "./hooks/useAuth";
 
 function App() {
+  const { auth } = useAuth();
+
   return (
     <>
       <Router>
@@ -25,8 +29,9 @@ function App() {
             {/* Public Routes */}
             <Route path="/" element={<LandingPage />} />
             {/* <Route path="home" element={<Welcome />} /> */}
-            <Route path="login" element={<Login />} />
-            <Route path="signup" element={<Signup />} />
+            {!auth && <Route path="login" element={<Login />} />}
+            {!auth && <Route path="signup" element={<Signup />} />}
+            {auth && <Route path="logout" element={<Logout />} />}
             <Route path="unauthorized" element={<Unauthorized />} />
 
             {/* Product Routes */}

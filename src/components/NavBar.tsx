@@ -1,6 +1,9 @@
 import { Link } from "react-router-dom";
+import useAuth from "../hooks/useAuth";
 
 const NavBar = () => {
+  const { auth, logout } = useAuth();
+
   return (
     <nav className="bg-gray-800">
       <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
@@ -55,36 +58,56 @@ const NavBar = () => {
 
             <div className="hidden sm:ml-6 sm:block">
               <div className="flex space-x-4">
-                <Link
-                  to="/login"
-                  className="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
-                >
-                  Login
-                </Link>
-                <Link
-                  to="/signup"
-                  className="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
-                >
-                  Sign Up
-                </Link>
-                <Link
-                  to="/products"
-                  className="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
-                >
-                  Products
-                </Link>
-                <Link
-                  to="/home"
-                  className="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
-                >
-                  Home
-                </Link>
-                <Link
-                  to="/sample"
-                  className="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
-                >
-                  Sample
-                </Link>
+                {!auth && (
+                  <>
+                    <Link
+                      to="/login"
+                      className="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+                    >
+                      Login
+                    </Link>
+                    <Link
+                      to="/signup"
+                      className="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+                    >
+                      Sign Up
+                    </Link>
+                  </>
+                )}
+                {auth && auth.roles?.includes("ADMIN") && (
+                  <>
+                    <Link
+                      to="/products"
+                      className="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+                    >
+                      Products
+                    </Link>
+                    <Link
+                      to="/sample"
+                      className="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+                    >
+                      Sample
+                    </Link>
+                  </>
+                )}
+
+                {auth && auth.roles?.includes("USER") && (
+                  <Link
+                    to="/home"
+                    className="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+                  >
+                    User Data
+                  </Link>
+                )}
+
+                {auth && (
+                  <a
+                    onClick={logout}
+                    className="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+                  >
+                    Logout
+                  </a>
+                )}
               </div>
             </div>
           </div>
