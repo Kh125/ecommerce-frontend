@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Unauthorized: React.FC = () => {
   return (
@@ -23,12 +24,12 @@ const Unauthorized: React.FC = () => {
           Sorry, you do not have permission to access this page. Please contact
           your administrator if you believe this is a mistake.
         </p>
-        <a
-          href="/"
+        <Link
+          to="/"
           className="inline-block px-6 py-3 bg-red-500 text-white rounded-md shadow-md hover:bg-red-600 transition duration-300"
         >
           Go to Home
-        </a>
+        </Link>
       </div>
     </div>
   );

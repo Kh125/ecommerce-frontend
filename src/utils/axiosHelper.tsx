@@ -1,10 +1,19 @@
 import axios from "axios";
 
-const axiosAPI = axios.create();
+const baseURL = "http://localhost:9090";
 
-axiosAPI.interceptors.request.use((config) => {
-  config.baseURL = "http://localhost:9090";
-  return config;
+// public axios
+const axiosAPI = axios.create({
+  baseURL: baseURL,
+});
+
+// private axios
+export const axiosPrivate = axios.create({
+  baseURL: baseURL,
+  headers: {
+    "Content-Type": "application/json",
+  },
+  withCredentials: true,
 });
 
 export default axiosAPI;

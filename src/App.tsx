@@ -13,6 +13,7 @@ import Welcome from "./pages/Welcome";
 import RequireAuth from "./auth/RequireAuth";
 import Layout from "./components/Layout";
 import Unauthorized from "./pages/Unauthorized";
+import Sample from "./pages/Sample";
 
 function App() {
   return (
@@ -30,8 +31,9 @@ function App() {
 
             {/* Product Routes */}
             <Route element={<RequireAuth allowedRoles={["ADMIN"]} />}>
-              <Route path="/products" element={<Products />} />
-              <Route path="/product/:id" element={<ProductDetails />} />
+              <Route path="products" element={<Products />} />
+              <Route path="product/:id" element={<ProductDetails />} />
+              <Route path="sample" element={<Sample />} />
             </Route>
 
             <Route element={<RequireAuth allowedRoles={["USER"]} />}>
